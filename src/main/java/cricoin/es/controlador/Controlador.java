@@ -132,15 +132,16 @@ public class Controlador {
 	}
 
 	@PostMapping("/verificaLogin")
-	public String loginCorrecto(@ModelAttribute("user") User elUsuario, HttpServletRequest request) {
+	public String loginCorrecto(@ModelAttribute("user") User user,Model modelo) {
 
-		System.out.println(elUsuario.getEmail());
-		System.out.println(elUsuario.getPass());
-
-		session = request.getSession(true);
+		System.out.println(user.getEmail());
+		System.out.println(user.getPass());
+		int userId=userDAO.getUserIdByMail(user.getEmail());
+		User usuarioLOG=userDAO.UserById(userId);
+		System.out.println(userId);
+		System.out.println(usuarioLOG);
 		
-		System.out.println(session);
-
+		
 		return "market";
 	}
 
@@ -154,11 +155,12 @@ public class Controlador {
 		return "inicio";
 	}
 
-	@InitBinder
+	
 	protected void initBinder(WebDataBinder binder, WebRequest request) {
 
-		String aaa = request.getParameter("b_date");
-		System.out.println(aaa);
+		
+		//String aaa = request.getParameter("b_date");
+		//System.out.println(aaa);
 		System.out.println("pasé por InitBinder");
 
 		StringTrimmerEditor recortarEspaciosBlanco = new StringTrimmerEditor(true);

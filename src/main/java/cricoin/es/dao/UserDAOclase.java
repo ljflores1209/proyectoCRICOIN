@@ -1,6 +1,9 @@
 package cricoin.es.dao;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Parameter;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -71,6 +74,34 @@ public class UserDAOclase implements UserDAO {
 		consulta.setParameter("emailBuscado", email);
 
 		return true;
+	}
+
+	@Override
+	@Transactional
+	public int getUserIdByMail(String email) {
+
+		Session miSession = sessionFactory.getCurrentSession();
+
+		Query consulta = miSession.createQuery("Select id_user from User where email=:emailUser");
+
+		consulta.setParameter("emailUser", email);
+
+		List usuarioEncontrado = consulta.list();
+
+		int idUser = Integer.parseInt(usuarioEncontrado.get(0).toString());
+
+		return idUser;
+	}
+
+	@Override
+	@Transactional
+	public User UserById(int id) {
+
+		Session miSession = sessionFactory.getCurrentSession();
+
+		User usuario = miSession.get(User.class, id);
+
+		return usuario;
 	}
 
 }

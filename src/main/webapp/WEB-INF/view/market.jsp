@@ -445,6 +445,6 @@ if (session.getAttribute("user") == null) {//cambio de vacio a null
 </html>
 <%
 } else {
-response.sendRedirect("index.jsp");
+response.sendRedirect("index");
 }
 %>

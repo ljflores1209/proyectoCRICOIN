@@ -49,7 +49,7 @@
           	<%} else{ %>
             		<a class="btn btn-light action-button" href="cerrarSesion" role="button" data-bss-hover-animate="pulse" href="register.jsp" style="background: #ffdf08;color: rgb(0,0,0);">Cerrar sesión</a>
             <%} %>
-	           		<a class="login" href="/proyectoLUIS" style="margin-left: 15px;">Inicio</a>
+	           		<a class="login" href="/ProyectoLuisSpring" style="margin-left: 15px;">Inicio</a>
            		</span>
         	</div>
         </div>
