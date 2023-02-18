@@ -14,7 +14,7 @@ public interface UserDAO {
 
 	public void verificaEmail(String email);
 
-	public Boolean comprobarSiExisteEmail(String email);
+	public User getUserByEmail(String email);
 
 	public int getUserIdByMail(String email);
 

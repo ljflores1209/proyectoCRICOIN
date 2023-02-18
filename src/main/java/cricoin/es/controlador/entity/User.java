@@ -6,12 +6,29 @@ import java.util.GregorianCalendar;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "user")
 public class User {
 
-	public User(String nick, String first_name, String last_name, Date b_date, String country,
+	public User(int id_user, String nick, String first_name, String last_name, @NotNull Date b_date, String country,
 			String email, String pass, String pass1, double capital) {
+
+		this.id_user = id_user;
+		this.nick = nick;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.b_date = b_date;
+		this.country = country;
+		this.email = email;
+		this.pass = pass;
+		this.pass1 = pass1;
+		this.capital = capital;
+	}
+
+	public User(String nick, String first_name, String last_name, Date b_date, String country, String email,
+			String pass, String pass1, double capital) {
 
 		this.nick = nick;
 		this.first_name = first_name;
@@ -155,6 +172,7 @@ public class User {
 	private String last_name;
 
 	@NotNull
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	@Column(name = "b_date")
 	private Date b_date;
 
@@ -165,7 +183,7 @@ public class User {
 
 	@Email
 	@NotNull
-	@Size(min = 2, message = "Campo requerido")
+	@Size(min = 2, message = "Campo requerido pupu")
 	@Column(name = "email")
 	private String email;
 
@@ -174,7 +192,6 @@ public class User {
 	@Column(name = "pass")
 	private String pass;
 
-	
 	@Column(name = "pass1")
 	private String pass1;
 

@@ -34,7 +34,7 @@
 <body>
 
     <nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean-button" data-aos="fade" style="filter: blur(0px);opacity: 0.90;">
-        <div class="container-fluid"><a class="navbar-brand" href=""><img alt="foto" src="${pageContext.request.contextPath}/assets/img/index/logo.png" style="width: 149px;margin: 9px;"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container-fluid"><a class="navbar-brand" href="inicio"><img alt="foto" src="${pageContext.request.contextPath}/assets/img/index/logo.png" style="width: 149px;margin: 9px;"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse justify-content-end" id="navcol-1">
             <span class="navbar-text actions">
             	<a class="login" href="market.jsp">Mercado&nbsp;</a>

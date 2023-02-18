@@ -104,9 +104,9 @@ if (session.getAttribute("user") == null) {//cambio de vacio a null
 			</button>
 			<div class="collapse navbar-collapse" id="navcol-1">
 				
-				<c:url var="linkProfile"	value="/user/editProfile">
+				<c:url var="linkProfile"	value="/editProfile">
 
-					<c:param name="userId" value="${user.id_user}"></c:param>
+					<c:param name="userId" value="${elUsuario.id_user}"></c:param>
 
 
 				</c:url>
@@ -149,6 +149,10 @@ if (session.getAttribute("user") == null) {//cambio de vacio a null
 		<%
 		}
 		%>
+		<h2 class="mercado-bienvenido">
+			Bienvenido1
+			<c:out value="${elUsuario.nick}" />
+		</h2>
 
 		<!--------///////////////////////////////fin mensaje bienvendida//////////////////////////////////---------->
 
@@ -225,9 +229,9 @@ if (session.getAttribute("user") == null) {//cambio de vacio a null
 										value=" " placeholder="Introduce la cantidad...">
 
 									<div class="mb-4">
-										<span id="sonante"><c:out value="${user.capital}" /></span>
+										<span id="sonante"><c:out value="${elUsuario.capital}" /></span>
 										USD<span id="sonanteIni" style="display: none"><c:out
-												value="${user.capital}" /></span>
+												value="${elUsuario.capital}" /></span>
 									</div>
 									<!-- aqui va la cantidad de dolares que tengo -->
 

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.context.request.WebRequest;
 
 import cricoin.es.controlador.entity.User;
@@ -32,7 +33,7 @@ import cricoin.es.dao.UserDAO;
 
 @Controller
 @Scope("session")
-@RequestMapping("/user")
+//@RequestMapping("/user")
 public class Controlador {
 
 	// Ir a pagina index.
@@ -84,9 +85,8 @@ public class Controlador {
 	@PostMapping("/insertarUsuario")
 
 	public String insertarUsuario(@Valid @ModelAttribute("user") User elUsuario, BindingResult resultadoValidacion,
-			HttpServletRequest request) {
+			HttpServletRequest request, Model modelo) {
 
-		session = request.getSession(true);
 		System.out.println(elUsuario.getCapital());
 		System.out.println(elUsuario.getFirst_name());
 		System.out.println(elUsuario.getB_date());
@@ -100,15 +100,16 @@ public class Controlador {
 
 			userDAO.insertaUsuario(elUsuario);
 			System.out.println("Despues de guardar usuario");
+			//modelo.addAttribute("user", elUsuario);
 			// settear la variable de session User
-			session.setAttribute("user", elUsuario);
+			request.getSession().setAttribute("elUsuario", elUsuario);
 
 			return "market";
 		}
 	}
 
 	@GetMapping("/editProfile")
-	public String actualizaUsuario(@RequestParam("userId") int Id, Model modelo) {
+	public String actualizaUsuario(@RequestParam("userId") int Id, Model modelo, HttpServletRequest request) {
 
 		System.out.println(Id);
 		// Obtengo el User
@@ -116,6 +117,7 @@ public class Controlador {
 		System.out.println(elUsuario);
 		// lo agrego al modelo
 		modelo.addAttribute("user", elUsuario);
+		request.getSession().setAttribute("elUsuario", elUsuario);
 
 		return "editProfile";
 	}
@@ -125,42 +127,64 @@ public class Controlador {
 
 		System.out.println("Vamos para pagina login");
 		System.out.println(elUsuario);
-		// Boolean aaa=userDAO.comprobarSiExisteEmail(elUsuario.getEmail());
+
 		// session.setAttribute("user", elUsuario);
 
 		return "login";
 	}
 
 	@PostMapping("/verificaLogin")
-	public String loginCorrecto(@ModelAttribute("user") User user,Model modelo) {
+	public String loginCorrecto(@ModelAttribute("user") User user, Model modelo,HttpServletRequest request) {
+		Boolean valido = true;
+		String errorLOG = null;
+		
 
-		System.out.println(user.getEmail());
-		System.out.println(user.getPass());
-		int userId=userDAO.getUserIdByMail(user.getEmail());
-		User usuarioLOG=userDAO.UserById(userId);
-		System.out.println(userId);
-		System.out.println(usuarioLOG);
-		
-		
-		return "market";
+		if (user.getEmail().equals("") || user.getPass().equals("")) {
+
+			errorLOG = "Debe rellenar todos los campos";
+			valido = false;
+		}
+		if (valido) {
+			User usuarioLOG = userDAO.getUserByEmail(user.getEmail());
+			System.out.println("El usuario logueado es "+usuarioLOG.toString());
+			if (usuarioLOG != null) {
+				if (user.getPass().equals(usuarioLOG.getPass())) {
+					//modelo.addAttribute("user", usuarioLOG);
+					request.getSession().setAttribute("elUsuario", usuarioLOG);
+					return "market";
+				} else {
+					modelo.addAttribute("mensaje", "Contraseña incorrecta");
+					return "login";
+				}
+
+			}
+
+		}
+
+		modelo.addAttribute("mensaje",errorLOG);
+		return "login";
+		// System.out.println(user.getPass());
+		// int userId = userDAO.getUserIdByMail(user.getEmail());
+		// User usuarioLOG = userDAO.UserById(userId);
+
+		// System.out.println(userId);
+		// System.out.println(usuarioLOG);
+
 	}
 
 	@GetMapping("/cerrarSesion")
 	public String loginCorrecto() {
-		
-		
+
 		System.out.println("Destruyo variable de sesion");
-		session.invalidate();// manera correcta de cerrar la session destruyendola-Mio
+		//session.invalidate();// manera correcta de cerrar la session destruyendola-Mio
 
 		return "inicio";
 	}
 
-	
 	protected void initBinder(WebDataBinder binder, WebRequest request) {
 
-		
-		//String aaa = request.getParameter("b_date");
-		//System.out.println(aaa);
+		// String aaa = request.getParameter("b_date");
+		// System.out.println(aaa);
 		System.out.println("pasé por InitBinder");
 
 		StringTrimmerEditor recortarEspaciosBlanco = new StringTrimmerEditor(true);
@@ -175,5 +199,6 @@ public class Controlador {
 	@Autowired
 	private UserDAO userDAO;
 
-	private HttpSession session;
+	// @Autowired
+	//private HttpSession session;
 }

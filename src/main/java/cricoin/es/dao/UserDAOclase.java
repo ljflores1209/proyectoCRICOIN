@@ -61,7 +61,7 @@ public class UserDAOclase implements UserDAO {
 
 	@Override
 	@Transactional
-	public Boolean comprobarSiExisteEmail(String email) {
+	public User getUserByEmail(String email) {
 
 		// Obtener la session
 
@@ -69,11 +69,13 @@ public class UserDAOclase implements UserDAO {
 
 		// Creo la consulta
 
-		Query consulta = miSession.createQuery("Select from User where email=:emailBuscado");
+		Query consulta = miSession.createQuery("from User u where u.email=:emailBuscado");
 
 		consulta.setParameter("emailBuscado", email);
 
-		return true;
+		List usuarioEncontrado = consulta.list();
+
+		return (User) usuarioEncontrado.get(0);
 	}
 
 	@Override

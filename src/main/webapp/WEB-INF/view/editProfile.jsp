@@ -59,6 +59,21 @@
 				<h1 style="border-bottom-style: none;">Rellenar Perfil</h1>
 				<div class="form-row form-group">
 					<div class="col-sm-4 text-center label-column">
+						<label class="col-form-label" for="email-input-field">id
+						</label>
+					</div>
+					
+					<div class="col-sm-6 input-column">
+
+						<form:input type="text" path="id_user" class="form-control"
+							placeholder="" value="${user.id_user}" />
+						<form:errors path="id_user" style="color:red"></form:errors>
+
+					</div>
+
+				</div>
+				<div class="form-row form-group">
+					<div class="col-sm-4 text-center label-column">
 						<label class="col-form-label" for="email-input-field">Email
 						</label>
 					</div>

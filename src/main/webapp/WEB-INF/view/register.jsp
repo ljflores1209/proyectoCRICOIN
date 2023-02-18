@@ -42,7 +42,7 @@
 		class="navbar navbar-light navbar-expand-md sticky-top navigation-clean-button"
 		data-aos="fade" style="filter: blur(0px); opacity: 0.90;">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="index.jsp"><img
+			<a class="navbar-brand" href="inicio"><img
 				src="${pageContext.request.contextPath}/assets/img/index/logo.png"
 				style="width: 149px; margin: 9px;"></a>
 			<button class="navbar-toggler" data-toggle="collapse">
@@ -58,6 +58,7 @@
 			method="POST">
 			<h2 class="sr-only">Login Form</h2>
 			<div class="illustration">
+
 				<i class="fas fa-rocket" style="color: #5319c3;"></i>
 			</div>
 
@@ -82,6 +83,7 @@
 				<form:errors path="pass1" style="color:red"></form:errors>
 				<div class="invalid-feedback" id="errorConfirmPassword"></div>
 			</div>
+
 
 			<div class="form-group">
 				<button class="btn btn-primary btn-block" type="submit"

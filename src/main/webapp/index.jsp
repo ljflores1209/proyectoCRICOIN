@@ -8,7 +8,9 @@
 </head>
 <body>
 
-	<%response.sendRedirect("user/inicio"); %>
+	
+	<jsp:forward
+		page="WEB-INF/view/inicio.jsp" />
 
 </body>
 </html>
